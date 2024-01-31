@@ -1,3 +1,9 @@
+# First move: Plays at 0, 0, 549936 positions
+
+# Edge start: 63896 positions
+# Corner start: 59696 positions
+# Center start: 55496 positions
+
 import pygame
 import sys
 
@@ -84,6 +90,7 @@ def evaluate(b):
 
 # Evaluates all possible resulting positions from current board state
 def minimax(b, depth, is_max):
+    global analysis_count
     score = evaluate(b)
 
     # Return score if the BOT has won
@@ -114,6 +121,9 @@ def minimax(b, depth, is_max):
                     # Make the move
                     b[i][j] = BOT
 
+                    # Increment analysis count
+                    analysis_count += 1
+
                     # Call minimax recursively and store the best outcome
                     best = max(best, minimax(b, depth + 1, not is_max))
 
@@ -135,6 +145,9 @@ def minimax(b, depth, is_max):
 
                     # Make the move
                     b[i][j] = PLAYER
+
+                    # Increment analysis count
+                    analysis_count += 1
 
                     # Call minimax recursively and store the best outcome
                     best = min(best, minimax(b, depth + 1, not is_max))
@@ -178,6 +191,10 @@ def main():
     player_turn = True  # True if it's the player's turn, False if it's the BOT's turn
     board = [['_' for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
 
+    # Begin counting the number of positions analyzed
+    global analysis_count
+    analysis_count = 0
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -211,6 +228,10 @@ def main():
             best_move = find_best_move(board)
             board[best_move[0]][best_move[1]] = BOT
             player_turn = True
+
+            # Print and reset the number of positions analyzed
+            print(f"Positions analyzed: {analysis_count}")
+            analysis_count = 0
 
         # Draw the board
         screen.fill(BLACK)
