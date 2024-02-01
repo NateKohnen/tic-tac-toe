@@ -5,13 +5,6 @@ class TicTacToeGame:
         self.winner = None  # 'X', 'O', or None
         self.game_over = False  # Flag to indicate if the game is over
 
-    def print_board(self):
-        # Print the current state of the board
-        for i in range(0, 9, 3):
-            print(f"{self.board[i]} | {self.board[i + 1]} | {self.board[i + 2]}")
-            if i < 6:
-                print("---------")
-
     def make_move(self, position):
         # Make a move on the board
         if not self.game_over and 0 <= position < 9 and self.board[position] == ' ':
