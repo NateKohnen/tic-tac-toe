@@ -1,5 +1,6 @@
 import pygame
 from tictactoegame import TicTacToeGame
+from ttt_minimax import MinimaxAlgorithm
 
 # Initialize Pygame
 pygame.init()
@@ -14,14 +15,22 @@ pygame.display.set_caption("Tic Tac Toe")
 
 # Main game loop
 running = True
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN and not game.is_game_over():
-            # Handle mouse clicks for player moves
+            # Handle mouse clicks for human player (X) moves
             x, y = event.pos
             position = (x // (WIDTH // game.get_grid_size())) + (y // (HEIGHT // game.get_grid_size())) * game.get_grid_size()
+            game.make_move(position)
+    keys = pygame.key.get_pressed()
+    if not game.is_game_over() and keys[pygame.K_SPACE]:
+        # Make a move for the bot player (O) using the minimax algorithm
+        if game.current_player == 'O':
+            algorithm = MinimaxAlgorithm('O')
+            position = algorithm.make_move(game)
             game.make_move(position)
 
     # Draw the board
