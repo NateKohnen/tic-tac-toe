@@ -49,3 +49,12 @@ class TicTacToeGame:
     def get_winner(self):
         # Return the winner ('X', 'O') or None if there is no winner
         return self.winner
+
+    def copy(self):
+        # Create a copy of the current game state
+        new_game = TicTacToeGame()
+        new_game.board = self.board.copy()
+        new_game.current_player = self.current_player
+        new_game.winner = self.winner
+        new_game.game_over = self.game_over
+        return new_game
