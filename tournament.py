@@ -2,7 +2,7 @@ from tictactoegame import TicTacToeGame
 from ttt_minimax import MinimaxAlgorithm
 from ttt_random1 import make_move as random_algorithm_move
 
-def run_tournament(number_of_iterations=10):
+def run_tournament(number_of_iterations=1):
     algorithm_a_wins = 0
     algorithm_b_wins = 0
     draws = 0
